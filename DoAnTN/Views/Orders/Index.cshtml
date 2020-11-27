@@ -1,0 +1,72 @@
+﻿@model IEnumerable<DoAnTN.Models.Order>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Danh sách đơn hàng</h2>
+
+<table class="table table-bordered" style="text-align: center">
+    <thead>
+        <tr>
+            <th style="font-weight: bold">
+                Họ và tên
+            </th>
+            <th style="font-weight: bold">
+                Số điện thoại
+            </th>
+            <th style="font-weight: bold">
+                Địa chỉ
+            </th>
+            <th style="font-weight: bold">
+                Ngày đặt hàng
+            </th>
+            <th style="font-weight: bold">
+                Ngày giao hàng
+            </th>
+            <th style="font-weight: bold">
+                Trạng thái
+            </th>
+            <th style="font-weight: bold">
+                Tổng tiền
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClosedDate)
+                </td>
+                <td>
+                    @(item.Status?"Đã duyệt":"Chờ xác nhận") 
+                    <br />
+                    <a id="@item.Id" asp-action="Accept" asp-route-id="@item.Id" class="btn btn-success btn-sm">Duyệt</a>
+                </td>
+                <td>
+                    @item.Total.ToString("#,###")
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Edit</a>
+                    <a asp-action="IndexDetail" asp-route-id="@item.Id" asp-controller="OrderDetails" class="btn btn-sm btn-success">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

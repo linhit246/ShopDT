@@ -1,0 +1,196 @@
+﻿@model IEnumerable<DoAnTN.Models.ProductDetail>
+@{
+    ViewData["Title"] = "IndexClient";
+    Layout = "~/Views/Shared/_LayoutDetail.cshtml";
+    var list = (List<ProductDetail>)ViewBag.ListProductDetail;
+    var comment = ViewBag.Comments;
+    var prod = (Product)ViewBag.Product;
+    var specifications = ViewBag.Specifications;
+}
+<style>
+    .pb-cmnt-container {
+        font-family: Lato;
+        margin-top: 100px;
+    }
+
+    .pb-cmnt-textarea {
+        resize: none;
+        padding: 20px;
+        height: 130px;
+        width: 100%;
+        border: 1px solid #F2F2F2;
+    }
+</style>
+<div class="content">
+    <div class="row">
+        <div class="col-8">
+            <div class="product-details">
+                <div class="grid images_3_of_2">
+                    <div id="container">
+                        <div id="products_example">
+                            <div id="products">
+                                <div class="slides_container" style="min-height: 360px; text-align: center">
+                                    <a href="@Url.Content("~/image/" + prod.ImagePath)" target="_blank"><img style="margin-left: -50px" id="pdImage" src="@Url.Content("~/image/" + prod.ImagePath)" alt="" /></a>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="desc span_3_of_2">
+                    <h2 style="font-weight: bolder; font-size: 2.5em">@prod.Name</h2>
+                    <div class="price">
+                        <p><span style="font-size: 2em">@prod.SellCost.ToString("#,###") ₫</span></p>
+                    </div>
+                    <div class="available">
+                        <ul>
+                            <li>
+                                <span style="font-size: large">Màu: </span>
+                                <select id="color">
+                                    @foreach (var item in list)
+                                    {
+                                        <option id="@item.Id" value="@item.Id" name="@item.ImagePath" selected>@item.ProductColor</option>
+                                    }
+                                </select>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="share-desc">
+                        <a id="buyNow" class="btn btn-primary btn-lg">MUA NGAY</a>
+                        <div class="clear"></div>
+                    </div>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $("#color").mouseout(function () {
+                                var id = $("#color").val().toString();
+                                var url = "http://localhost:53875/Cart/BuyProducts/" + id;
+                                $("#buyNow").attr("href", url);
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="col-12" style="padding: 0; margin-bottom: 20px">
+                <div class="modal-content" style="padding: 20px">
+                    @foreach (var item in comment)
+                    {
+                        <div class="row">
+                        <img src="@Url.Content("~/image/user/" + item.User.Avatar)" width="32px" height="32px" asp-append-version="true" style="border-radius: 50%"/>
+                        <div class="col">
+                            <strong>@item.User.FirstName @item.User.LastName</strong>
+                            <p>@item.Content</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <i class="far fa-thumbs-up" style="margin-left: 30px"></i>
+                        <i class="far fa-thumbs-down" style="margin-right: 10px"></i>
+                        <em style="margin-right: 10px">@item.CommentDate</em>
+                    </div>
+                    }
+                </div>
+            </div>
+            <div class="card card-info">
+                <div class="card-block" style="padding: 10px">
+                    <strong>Nhận xét của bạn</strong>
+                    <form asp-action="Create" asp-controller="Comments" method="post" asp-route-id="@prod.Id">
+                        <textarea name="content" placeholder="Viết bình luận của bạn ở đây!" class="pb-cmnt-textarea" style="outline: none; padding: 5px" maxlength="500"></textarea>
+                        <button class="btn btn-primary float-right" type="submit">Gửi bình luận</button>
+                    </form>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4" style="float: right">
+            <div class="categories">
+                <h3 style="margin-bottom: 0">Thông số kĩ thuật</h3>
+                <table class="table table-striped" style="margin-bottom: 0" width="300px">
+                    @if (@specifications.Storage != null)
+                    {
+                        <tr>
+                            <th>Bộ nhớ trong:</th>
+                            <td>@specifications.Storage</td>
+                        </tr>
+                    }
+                    @if (@specifications.Ram != null)
+                    {
+                        <tr>
+                            <th>RAM:</th>
+                            <td>@specifications.Ram</td>
+                        </tr>
+                    }
+                    @if (@specifications.Fcamera != null)
+                    {
+                        <tr>
+                            <th>Cam chính:</th>
+                            <td>@specifications.Fcamera</td>
+                        </tr>
+                    }
+                    @if (@specifications.Scamera != null)
+                    {
+                        <tr>
+                            <th>Cam phụ:</th>
+                            <td>@specifications.Scamera</td>
+                        </tr>
+                    }
+                    @if (@specifications.Cpu != null)
+                    {
+                        <tr>
+                            <th>CPU:</th>
+                            <td>@specifications.Cpu</td>
+                        </tr>
+                    }
+                    @if (@specifications.Resolution != null)
+                    {
+                        <tr>
+                            <th>Độ phân giải:</th>
+                            <td>@specifications.Resolution</td>
+                        </tr>
+                    }
+                    @if (@specifications.Battery != null)
+                    {
+                        <tr>
+                            <th>Dung lượng Pin:</th>
+                            <td>@specifications.Battery</td>
+                        </tr>
+                    }
+                    @if (@specifications.Os != null)
+                    {
+                        <tr>
+                            <th>Hệ điều hành:</th>
+                            <td>@specifications.Os</td>
+                        </tr>
+                    }
+                    @if (@specifications.ScreenSize != null)
+                    {
+                        <tr>
+                            <th>Kích thước màn hình:</th>
+                            <td>@specifications.ScreenSize</td>
+                        </tr>
+                    }
+                    @if (@specifications.SimNumber != null)
+                    {
+                        <tr>
+                            <th>Thẻ Sim:</th>
+                            <td>@specifications.SimNumber</td>
+                        </tr>
+                    }
+                    @if (@specifications.FastCharge != null)
+                    {
+                        <tr>
+                            <th>Sạc nhanh:</th>
+                            <td>@specifications.FastCharge</td>
+                        </tr>
+                    }
+                    @if (@specifications.Sdcard != null)
+                    {
+                        <tr>
+                            <th>Thẻ nhớ:</th>
+                            <td>@specifications.Sdcard</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

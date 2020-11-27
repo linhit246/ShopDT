@@ -1,0 +1,67 @@
+﻿@model DoAnTN.Models.UserDTO
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutDetail.cshtml";
+}
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content" style="box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+        <div class="modal-header justify-content-center">
+            <h4 class="modal-title" id="addProductLabel" style="font-weight: bold">ĐĂNG KÍ</h4>
+        </div>
+        <div class="modal-body">
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label class="control-label">Tên đăng nhập</label>
+                    <input asp-for="Username" class="form-control" placeholder="Tên đăng nhập" required autofocus style="outline: none"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Mật khẩu</label>
+                    <input type="password" asp-for="Password" placeholder="Mật khẩu" class="form-control" required  style="outline: none"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Ảnh đại diện</label>
+                    <input asp-for="Avatar" name="Avatar" class="form-control-file"  style="outline: none"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Họ</label>
+                    <input asp-for="FirstName" placeholder="VD: Nguyễn Duy" class="form-control" required  style="outline: none"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Tên</label>
+                    <input asp-for="LastName" placeholder="VD: Linh" class="form-control" required  style="outline: none"/>
+                </div>
+                <div class="form-group">
+                    Giới tính
+                    <br />
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" asp-for="Gender" class="form-check-input" checked value="Nam"  style="outline: none"/>Nam
+                        </label>
+                        <label class="form-check-label">
+                            <input type="radio" asp-for="Gender" class="form-check-input" value="Nữ"  style="outline: none"/>Nữ
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Ngày sinh</label>
+                    <input asp-for="BirthDay" class="form-control"  style="outline: none"/>
+                    <span asp-validation-for="BirthDay" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 0">
+                    <button type="submit" class="btn btn-primary" style="width: 200px; height: 50px; margin-bottom: 10px">
+                        <span style="font-weight: bold; font-size: 20px">ĐĂNG KÍ</span>
+                    </button>
+                    <div>Bạn đã có tài khoản? <a asp-action="Login" asp-controller="Users">Đăng nhập</a> ngay.</div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

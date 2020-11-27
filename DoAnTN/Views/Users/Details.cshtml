@@ -1,0 +1,69 @@
+﻿@model DoAnTN.Models.User
+
+@{
+    ViewData["Title"] = "Details";
+    var list = ViewBag.Order;
+    var address = ViewBag.Address;
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div class="row">
+    <div class="col-4">
+        <div class="modal-content">
+            <div class="modal-header">
+                Thông tin cá nhân | 
+                <span><a asp-action="Edit" asp-route-id="@Model.Id">Chỉnh sửa</a></span>
+            </div>
+            <div class="modal-body">
+                <p>Tài khoản: @Model.Username</p>
+                <p>Họ tên: @Model.FirstName @Model.LastName</p>
+                <p>Ngày sinh: @Html.DisplayFor(model => model.BirthDay)</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-8 modal-content">
+        <div class="modal-header">
+            Sổ địa chỉ | 
+            <span><a asp-action="Edit" asp-route-id="@Model.Id" asp-controller="Addresses">Chỉnh sửa</a></span>
+        </div>
+        <div class="modal-body">
+            <p>Họ tên: @Model.FirstName @Model.LastName</p>
+            <p>Số điện thoại: @address.Phone</p>
+            <p>Địa chỉ: @address.City - @address.District - @address.Address1</p>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-top: 10px;">
+    <div class="col-12" style="padding-right: 0">
+        <div class="modal-content">
+            <div class="modal-header">
+                Đơn hàng gần đây
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Mã đơn hàng</th>
+                            <th>Ngày đặt hàng</th>
+                            <th>Sản phẩm</th>
+                            <th>Tổng tiền</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in list)
+                        {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.OrderDate</td>
+                            <td>Sản phẩm</td>
+                            <td>@item.Total</td>
+                            <td></td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
