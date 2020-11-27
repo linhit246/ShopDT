@@ -32,7 +32,19 @@ namespace DoAnTN.Controllers
             var specifications = _context.Specifications.Where(x => x.Id == id).FirstOrDefault();
             ViewBag.Specifications = specifications;
             var comment = _context.Comments.Include(u => u.User).Where(x => x.ProductId == id && x.Status == true);
-            ViewBag.Comments = comment;
+            int count = 0;
+            foreach (var item in comment)
+            {
+                count++;
+            }
+            if (count > 0)
+            {
+                ViewBag.Comments = comment;
+            }
+            else
+            {
+                ViewBag.Comments = null;
+            }
             ViewBag.Product = new ProductDetailDAO().ListProduct(id);
             ViewBag.ListProductDetail = new ProductDetailDAO().ListProductDetail(id);
             return View();

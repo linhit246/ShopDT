@@ -71,25 +71,23 @@
                 </div>
                 <div class="clear"></div>
             </div>
+            @if (comment != null)
+            {
             <div class="col-12" style="padding: 0; margin-bottom: 20px">
                 <div class="modal-content" style="padding: 20px">
                     @foreach (var item in comment)
                     {
-                        <div class="row">
-                        <img src="@Url.Content("~/image/user/" + item.User.Avatar)" width="32px" height="32px" asp-append-version="true" style="border-radius: 50%"/>
-                        <div class="col">
-                            <strong>@item.User.FirstName @item.User.LastName</strong>
-                            <p>@item.Content</p>
+                        <div class="d-flex align-content-start">
+                            <img src="@Url.Content("~/image/user/" + item.User.Avatar)" width="32px" height="32px" asp-append-version="true" style="border-radius: 50%; margin-top: 5px" />
+                            <div class="col">
+                                <strong>@item.User.FirstName @item.User.LastName </strong><span> - @String.Format("{0:dd/MM/yyyy}", item.CommentDate)</span>
+                                <p>@item.Content</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <i class="far fa-thumbs-up" style="margin-left: 30px"></i>
-                        <i class="far fa-thumbs-down" style="margin-right: 10px"></i>
-                        <em style="margin-right: 10px">@item.CommentDate</em>
-                    </div>
                     }
                 </div>
             </div>
+            }
             <div class="card card-info">
                 <div class="card-block" style="padding: 10px">
                     <strong>Nhận xét của bạn</strong>
@@ -101,96 +99,101 @@
                 </div>
             </div>
         </div>
-        <div class="col-4" style="float: right">
-            <div class="categories">
-                <h3 style="margin-bottom: 0">Thông số kĩ thuật</h3>
-                <table class="table table-striped" style="margin-bottom: 0" width="300px">
-                    @if (@specifications.Storage != null)
-                    {
-                        <tr>
-                            <th>Bộ nhớ trong:</th>
-                            <td>@specifications.Storage</td>
-                        </tr>
-                    }
-                    @if (@specifications.Ram != null)
-                    {
-                        <tr>
-                            <th>RAM:</th>
-                            <td>@specifications.Ram</td>
-                        </tr>
-                    }
-                    @if (@specifications.Fcamera != null)
-                    {
-                        <tr>
-                            <th>Cam chính:</th>
-                            <td>@specifications.Fcamera</td>
-                        </tr>
-                    }
-                    @if (@specifications.Scamera != null)
-                    {
-                        <tr>
-                            <th>Cam phụ:</th>
-                            <td>@specifications.Scamera</td>
-                        </tr>
-                    }
-                    @if (@specifications.Cpu != null)
-                    {
-                        <tr>
-                            <th>CPU:</th>
-                            <td>@specifications.Cpu</td>
-                        </tr>
-                    }
-                    @if (@specifications.Resolution != null)
-                    {
-                        <tr>
-                            <th>Độ phân giải:</th>
-                            <td>@specifications.Resolution</td>
-                        </tr>
-                    }
-                    @if (@specifications.Battery != null)
-                    {
-                        <tr>
-                            <th>Dung lượng Pin:</th>
-                            <td>@specifications.Battery</td>
-                        </tr>
-                    }
-                    @if (@specifications.Os != null)
-                    {
-                        <tr>
-                            <th>Hệ điều hành:</th>
-                            <td>@specifications.Os</td>
-                        </tr>
-                    }
-                    @if (@specifications.ScreenSize != null)
-                    {
-                        <tr>
-                            <th>Kích thước màn hình:</th>
-                            <td>@specifications.ScreenSize</td>
-                        </tr>
-                    }
-                    @if (@specifications.SimNumber != null)
-                    {
-                        <tr>
-                            <th>Thẻ Sim:</th>
-                            <td>@specifications.SimNumber</td>
-                        </tr>
-                    }
-                    @if (@specifications.FastCharge != null)
-                    {
-                        <tr>
-                            <th>Sạc nhanh:</th>
-                            <td>@specifications.FastCharge</td>
-                        </tr>
-                    }
-                    @if (@specifications.Sdcard != null)
-                    {
-                        <tr>
-                            <th>Thẻ nhớ:</th>
-                            <td>@specifications.Sdcard</td>
-                        </tr>
-                    }
-                </table>
+        @if (specifications != null)
+        {
+            <div class="col-4" style="float: right">
+                <div class="categories">
+                    <h3 style="margin-bottom: 0">Thông số kĩ thuật</h3>
+                    <table class="table table-striped" style="margin-bottom: 0">
+
+                        @if (@specifications.Storage != null)
+                        {
+                            <tr>
+                                <th>Bộ nhớ trong:</th>
+                                <td>@specifications.Storage</td>
+                            </tr>
+                        }
+                        @if (@specifications.Ram != null)
+                        {
+                            <tr>
+                                <th>RAM:</th>
+                                <td>@specifications.Ram</td>
+                            </tr>
+                        }
+                        @if (@specifications.Fcamera != null)
+                        {
+                            <tr>
+                                <th>Cam chính:</th>
+                                <td>@specifications.Fcamera</td>
+                            </tr>
+                        }
+                        @if (@specifications.Scamera != null)
+                        {
+                            <tr>
+                                <th>Cam phụ:</th>
+                                <td>@specifications.Scamera</td>
+                            </tr>
+                        }
+                        @if (@specifications.Cpu != null)
+                        {
+                            <tr>
+                                <th>CPU:</th>
+                                <td>@specifications.Cpu</td>
+                            </tr>
+                        }
+                        @if (@specifications.Resolution != null)
+                        {
+                            <tr>
+                                <th>Độ phân giải:</th>
+                                <td>@specifications.Resolution</td>
+                            </tr>
+                        }
+                        @if (@specifications.Battery != null)
+                        {
+                            <tr>
+                                <th>Dung lượng Pin:</th>
+                                <td>@specifications.Battery</td>
+                            </tr>
+                        }
+                        @if (@specifications.Os != null)
+                        {
+                            <tr>
+                                <th>Hệ điều hành:</th>
+                                <td>@specifications.Os</td>
+                            </tr>
+                        }
+                        @if (@specifications.ScreenSize != null)
+                        {
+                            <tr>
+                                <th>Kích thước màn hình:</th>
+                                <td>@specifications.ScreenSize</td>
+                            </tr>
+                        }
+                        @if (@specifications.SimNumber != null)
+                        {
+                            <tr>
+                                <th>Thẻ Sim:</th>
+                                <td>@specifications.SimNumber</td>
+                            </tr>
+                        }
+                        @if (@specifications.FastCharge != null)
+                        {
+                            <tr>
+                                <th>Sạc nhanh:</th>
+                                <td>@specifications.FastCharge</td>
+                            </tr>
+                        }
+                        @if (@specifications.Sdcard != null)
+                        {
+                            <tr>
+                                <th>Thẻ nhớ:</th>
+                                <td>@specifications.Sdcard</td>
+                            </tr>
+                        }
+                        
+                    </table>
+                </div>
             </div>
+        }
         </div>
-    </div>
 </div>
