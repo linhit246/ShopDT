@@ -47,9 +47,10 @@
                             <li>
                                 <span style="font-size: large">Màu: </span>
                                 <select id="color">
+                                    <option disabled selected>Chọn màu</option>
                                     @foreach (var item in list)
                                     {
-                                        <option id="@item.Id" value="@item.Id" name="@item.ImagePath" selected>@item.ProductColor</option>
+                                        <option id="@item.Id" value="@item.Id" name="@item.ImagePath">@item.ProductColor</option>
                                     }
                                 </select>
                             </li>
@@ -65,6 +66,16 @@
                                 var id = $("#color").val().toString();
                                 var url = "http://localhost:53875/Cart/BuyProducts/" + id;
                                 $("#buyNow").attr("href", url);
+                            });
+                            $("#color").change(function () {
+                                var link = $(this).find("option:selected").attr("name");
+                                var src = @Url.Content("~/image/") + link;
+                                $("#pdImage").attr("src", src);
+                            });
+                            $("#buyNow").click(function () {
+                                if ($(this).attr("href") == null) {
+                                    alert("Vui lòng chọn màu");
+                                }
                             });
                         });
                     </script>

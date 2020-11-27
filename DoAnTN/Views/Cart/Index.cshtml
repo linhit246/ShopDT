@@ -29,35 +29,49 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @if (Model != null && Model.Count() != 0)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductColor)
+                    </td>
+                    <td>
+                        <img src="@Url.Content("~/image/" + item.ImagePath)" width="150px" height="150px" asp-append-version="true" />
+                    </td>
+                    <td>
+                        <span>@item.SellCost.ToString("#,###") ₫</span>
+                    </td>
+                    <td style="align-content: center">
+                        <div class="input-group input-group-sm">
+                            <a style="margin-left: 20px" class="btn btn-sm btn-outline-danger" asp-controller="Cart" asp-action="BuyProductsDown" asp-route-id="@item.ProductDetailID">-</a>
+                            <input style="outline: none; margin-left: 5px" id="cart_quantity_input" type="text" name="quantity" value="@item.Quantity" size="1" readonly>
+                            <a style="margin-left: 5px" class="btn btn-sm btn-outline-primary" asp-controller="Cart" asp-action="BuyProductsUp" asp-route-id="@item.ProductDetailID">+</a>
+                        </div>
+                    </td>
+                    <td>
+                        <a asp-action="RemoveProduct" asp-route-id="@item.ProductDetailID" class="btn btn-danger">Xóa</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductColor)
-                </td>
-                <td>
-                    <img src="@Url.Content("~/image/" + item.ImagePath)" width="150px" height="150px" asp-append-version="true" />
-                </td>
-                <td>
-                    <span>@item.SellCost.ToString("#,###") ₫</span>
-                </td>
-                <td style="align-content: center">
-                    <div class="input-group input-group-sm">
-                        <a style="margin-left: 20px" class="btn btn-sm btn-outline-danger" asp-controller="Cart" asp-action="BuyProductsDown" asp-route-id="@item.ProductDetailID">-</a>
-                        <input style="outline: none; margin-left: 5px" id="cart_quantity_input" type="text" name="quantity" value="@item.Quantity" size="1" readonly>
-                        <a style="margin-left: 5px" class="btn btn-sm btn-outline-primary" asp-controller="Cart" asp-action="BuyProductsUp" asp-route-id="@item.ProductDetailID">+</a>
-                    </div>
-                </td>
-                <td>
-                    <a asp-action="RemoveProduct" asp-route-id="@item.ProductDetailID" class="btn btn-danger">Xóa</a>
-                </td>
+                <td colspan="6" style="font-weight: bold; font-size: 20px; color: red">Giỏ hàng trống</td>
             </tr>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $("#checkout").addClass("disabled");
+                });
+            </script>
         }
     </tbody>
 </table>
 <p id="total" class="mb-2" style="font-weight: bold">Tổng tiền: <span style="color: red; font-size: larger">@total.ToString("#,###") ₫</span></p>
 <a asp-action="IndexClient" asp-controller="Products" class="btn btn-success">Mua thêm sản phẩm</a>
-<a asp-action="CreateOrder" asp-controller="Orders" class="btn btn-primary">Thanh toán</a>
+<a id="checkout" asp-action="CreateOrder" asp-controller="Orders" class="btn btn-primary">Thanh toán</a>

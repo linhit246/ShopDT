@@ -21,7 +21,14 @@ namespace DoAnTN.Controllers
         {
             List<OrderDetailDTO> cart = SessionHelper.GetSession<List<OrderDetailDTO>>(HttpContext.Session, "cart");
             ViewBag.cart = cart;
-            ViewBag.total = cart.Sum(x => x.Quantity * x.SellCost);
+            if (cart != null)
+            {
+                ViewBag.total = cart.Sum(x => x.Quantity * x.SellCost);
+            }
+            else
+            {
+                ViewBag.total = 0;
+            }
             return View(cart);
         }
         private int IsExits(int id)
