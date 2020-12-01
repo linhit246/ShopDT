@@ -93,6 +93,7 @@ namespace DoAnTN.Controllers
                     _context.Add(o);
                     await _context.SaveChangesAsync();
                 }
+                SessionHelper.SetSession(HttpContext.Session, "cart", null);
                 return RedirectToAction("IndexClient", "Products");
             }
             ViewData["OrderId"] = new SelectList(_context.Orders, "Id", "Id");

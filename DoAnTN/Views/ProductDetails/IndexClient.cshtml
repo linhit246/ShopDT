@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<DoAnTN.Models.ProductDetail>
+@using Microsoft.AspNetCore.Http
+@using DoAnTN.Helpers
 @{
     ViewData["Title"] = "IndexClient";
     Layout = "~/Views/Shared/_LayoutDetail.cshtml";
@@ -84,22 +86,24 @@
             </div>
             @if (comment != null)
             {
-            <div class="col-12" style="padding: 0; margin-bottom: 20px">
-                <div class="modal-content" style="padding: 20px">
-                    @foreach (var item in comment)
-                    {
-                        <div class="d-flex align-content-start">
-                            <img src="@Url.Content("~/image/user/" + item.User.Avatar)" width="32px" height="32px" asp-append-version="true" style="border-radius: 50%; margin-top: 5px" />
-                            <div class="col">
-                                <strong>@item.User.FirstName @item.User.LastName </strong><span> - @String.Format("{0:dd/MM/yyyy}", item.CommentDate)</span>
-                                <p>@item.Content</p>
+                <div class="col-12" style="padding: 0; margin-bottom: 20px">
+                    <div class="modal-content" style="padding: 20px">
+                        @foreach (var item in comment)
+                        {
+                            <div class="d-flex align-content-start">
+                                <img src="@Url.Content("~/image/user/" + item.User.Avatar)" width="32px" height="32px" asp-append-version="true" style="border-radius: 50%; margin-top: 5px" />
+                                <div class="col">
+                                    <strong>@item.User.FirstName @item.User.LastName </strong><span> - @String.Format("{0:dd/MM/yyyy}", item.CommentDate)</span>
+                                    <p>@item.Content</p>
+                                </div>
                             </div>
-                        </div>
-                    }
+                        }
+                    </div>
                 </div>
-            </div>
             }
-            <div class="card card-info">
+            @if (SessionHelper.GetSession<User>(Context.Session, "Login") != null)
+            {
+                <div class="card card-info">
                 <div class="card-block" style="padding: 10px">
                     <strong>Nhận xét của bạn</strong>
                     <form asp-action="Create" asp-controller="Comments" method="post" asp-route-id="@prod.Id">
@@ -109,6 +113,7 @@
                     <div class="clear"></div>
                 </div>
             </div>
+            }
         </div>
         @if (specifications != null)
         {
@@ -201,10 +206,10 @@
                                 <td>@specifications.Sdcard</td>
                             </tr>
                         }
-                        
+
                     </table>
                 </div>
             </div>
         }
-        </div>
+    </div>
 </div>

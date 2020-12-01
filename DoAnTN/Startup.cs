@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DoAnTN.Helpers;
 using DoAnTN.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,6 +25,9 @@ namespace DoAnTN
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddScoped<IpaginationService, paginationService>();
+
             services.AddControllersWithViews();
             services.AddDistributedMemoryCache();
             services.AddMvc();
@@ -60,6 +64,8 @@ namespace DoAnTN
                     name: "default",
                     pattern: "{controller=Products}/{action=IndexClient}/{id?}");
             });
+
+
         }
     }
 }

@@ -153,8 +153,6 @@ D:\DoAnTN\DoAnTN\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.
 D:\DoAnTN\DoAnTN\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\DoAnTN.AssemblyInfoInputs.cache
 D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\DoAnTN.AssemblyInfo.cs
-D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\DoAnTN.csproj.CoreCompileInputs.cache
-D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\DoAnTN.MvcApplicationPartsAssemblyInfo.cache
 D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\DoAnTN.RazorAssemblyInfo.cache
 D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\DoAnTN.RazorAssemblyInfo.cs
 D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\DoAnTN.TagHelpers.input.cache
@@ -265,4 +263,15 @@ D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\staticwebassets\DoAnTN.StaticWebAssets.
 D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\DoAnTN.dll
 D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\DoAnTN.pdb
 D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\DoAnTN.genruntimeconfig.cache
+D:\DoAnTN\DoAnTN\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+D:\DoAnTN\DoAnTN\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+D:\DoAnTN\DoAnTN\bin\Debug\netcoreapp3.1\X.PagedList.dll
+D:\DoAnTN\DoAnTN\bin\Debug\netcoreapp3.1\X.PagedList.Mvc.Core.dll
+D:\DoAnTN\DoAnTN\bin\Debug\netcoreapp3.1\X.PagedList.Web.Common.dll
 D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\DoAnTN.csprojAssemblyReference.cache
+D:\DoAnTN\DoAnTN\bin\Debug\netcoreapp3.1\libman.json
+D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\DoAnTN.csproj.CoreCompileInputs.cache
+D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\DoAnTN.MvcApplicationPartsAssemblyInfo.cs
+D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\DoAnTN.MvcApplicationPartsAssemblyInfo.cache
+D:\DoAnTN\DoAnTN\bin\Debug\netcoreapp3.1\PagedList.Core.dll
+D:\DoAnTN\DoAnTN\bin\Debug\netcoreapp3.1\PagedList.Core.Mvc.dll

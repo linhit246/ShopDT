@@ -59,14 +59,21 @@ namespace DoAnTN.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         public async Task<IActionResult> Create(int id)
         {
-            var user = SessionHelper.GetSession<User>(HttpContext.Session, "Login");
-            Comment cm = new Comment();
-            cm.UserId = user.Id;
-            cm.ProductId = id;
-            cm.Content = Request.Form["content"];
-            _context.Add(cm);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("IndexClient", "ProductDetails", new {@id = id});
+            if (SessionHelper.GetSession<User>(HttpContext.Session, "Login") == null)
+            {
+                return RedirectToAction("Login", "Users");
+            }
+            else
+            {
+                var user = SessionHelper.GetSession<User>(HttpContext.Session, "Login");
+                Comment cm = new Comment();
+                cm.UserId = user.Id;
+                cm.ProductId = id;
+                cm.Content = Request.Form["content"];
+                _context.Add(cm);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("IndexClient", "ProductDetails", new { @id = id });
+            }
         }
 
         // GET: Comments/Edit/5

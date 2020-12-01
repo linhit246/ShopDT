@@ -10,26 +10,65 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.Extensions.FileProviders;
 using DoAnTN.Helpers;
+using PagedList.Core;
 
 namespace DoAnTN.Controllers
 {
     public class ProductsController : Controller
     {
         private readonly ShopDienThoaiContext _context;
+        private readonly IpaginationService _page;
 
-        public ProductsController(ShopDienThoaiContext context)
+
+        public ProductsController(ShopDienThoaiContext context, IpaginationService pages)
         {
             _context = context;
+            _page = pages;
         }
 
         // GET: Products
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index(int? page)
+        //{
+        //    if (page == null)
+        //    {
+        //        page = 1;
+        //    }
+        //    int pageSize = 10;
+        //    int pageNumber = (page ?? 1);
+        //    var shopDienThoaiContext = _context.Products.Include(p => p.Category).OrderByDescending(x => x.LastUpdate).Where(x => x.IsDelete == false);
+        //    return View(shopDienThoaiContext.ToPagedList(pageNumber, pageSize));
+        //}
+
+
+        public IActionResult Index(int? page = 0)
         {
-            var shopDienThoaiContext = _context.Products.Include(p => p.Category).OrderByDescending(x => x.LastUpdate).Where(x => x.IsDelete == false);
-            return View(await shopDienThoaiContext.ToListAsync());
+            int limit = 5;
+            int start;
+            if (page > 0)
+            {
+                page = page;
+            }
+            else
+            {
+                page = 1;
+            }
+            start = (int)(page - 1) * limit;
+
+            ViewBag.pageCurrent = page;
+
+            int totalProduct = _page.totalProduct();
+
+            ViewBag.totalProduct = totalProduct;
+
+            ViewBag.numberPage = _page.numberPage(totalProduct, limit);
+
+            var data = _page.paginationProduct(start, limit);
+
+            return View(data);
         }
 
-        public async Task<IActionResult> IndexClient()
+
+    public async Task<IActionResult> IndexClient()
         {
            
             var shopDienThoaiContext = _context.Products.Include(p => p.Category).OrderByDescending(x => x.LastUpdate).Where(x => x.IsDelete == false).Take(8);
