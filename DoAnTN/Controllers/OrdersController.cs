@@ -26,6 +26,12 @@ namespace DoAnTN.Controllers
             return View(await shopDienThoaiContext.ToListAsync());
         }
 
+        public async Task<IActionResult> IndexClient(int id)
+        {
+            var shopDienThoaiContext = _context.Orders.Include(o => o.User).Where(x => x.IsDelete == false && x.UserId == id).OrderByDescending(x => x.LastUpdate);
+            return View(await shopDienThoaiContext.ToListAsync());
+        }
+
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
         {

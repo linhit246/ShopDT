@@ -1,4 +1,14 @@
-﻿<!DOCTYPE html>
+﻿@using DoAnTN.Helpers;
+@using Microsoft.AspNetCore.Http;
+@{
+    var user = SessionHelper.GetSession<User>(Context.Session, "Login");
+    var role = SessionHelper.GetSession<UserRole>(Context.Session, "role");
+}
+@if ((user == null))
+{
+
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />

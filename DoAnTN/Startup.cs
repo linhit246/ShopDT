@@ -25,14 +25,18 @@ namespace DoAnTN
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddScoped<IpaginationService, paginationService>();
-
             services.AddControllersWithViews();
             services.AddDistributedMemoryCache();
             services.AddMvc();
             services.AddSession(options => {
                 options.Cookie.Name = "cart";
+                options.IdleTimeout = TimeSpan.FromSeconds(20000);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+            services.AddSession(options => {
+                options.Cookie.Name = "Login";
                 options.IdleTimeout = TimeSpan.FromSeconds(20000);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;

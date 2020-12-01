@@ -236,10 +236,6 @@ D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\Razor\Views\Specifications\Delete.cshtm
 D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\Razor\Views\Specifications\Details.cshtml.g.cs
 D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\Razor\Views\Specifications\Edit.cshtml.g.cs
 D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\Razor\Views\Specifications\Index.cshtml.g.cs
-D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\Razor\Views\Statistics\Create.cshtml.g.cs
-D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\Razor\Views\Statistics\Delete.cshtml.g.cs
-D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\Razor\Views\Statistics\Details.cshtml.g.cs
-D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\Razor\Views\Statistics\Edit.cshtml.g.cs
 D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\Razor\Views\Statistics\Index.cshtml.g.cs
 D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\Razor\Views\UserRoles\Create.cshtml.g.cs
 D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\Razor\Views\UserRoles\Delete.cshtml.g.cs
@@ -268,10 +264,12 @@ D:\DoAnTN\DoAnTN\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 D:\DoAnTN\DoAnTN\bin\Debug\netcoreapp3.1\X.PagedList.dll
 D:\DoAnTN\DoAnTN\bin\Debug\netcoreapp3.1\X.PagedList.Mvc.Core.dll
 D:\DoAnTN\DoAnTN\bin\Debug\netcoreapp3.1\X.PagedList.Web.Common.dll
-D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\DoAnTN.csprojAssemblyReference.cache
 D:\DoAnTN\DoAnTN\bin\Debug\netcoreapp3.1\libman.json
 D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\DoAnTN.csproj.CoreCompileInputs.cache
 D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\DoAnTN.MvcApplicationPartsAssemblyInfo.cs
 D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\DoAnTN.MvcApplicationPartsAssemblyInfo.cache
 D:\DoAnTN\DoAnTN\bin\Debug\netcoreapp3.1\PagedList.Core.dll
 D:\DoAnTN\DoAnTN\bin\Debug\netcoreapp3.1\PagedList.Core.Mvc.dll
+D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\DoAnTN.csprojAssemblyReference.cache
+D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\Razor\Views\Orders\IndexClient.cshtml.g.cs
+D:\DoAnTN\DoAnTN\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Index.cshtml.g.cs

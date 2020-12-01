@@ -19,9 +19,9 @@ namespace DoAnTN.Controllers
         }
 
         // GET: ManagementSaleCodes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            var shopDienThoaiContext = _context.ManagementSaleCodes.Include(m => m.SaleCode).Include(m => m.User);
+            var shopDienThoaiContext = _context.ManagementSaleCodes.Include(m => m.SaleCode).Include(m => m.User).Where(m => m.UserId == id);
             return View(await shopDienThoaiContext.ToListAsync());
         }
 
