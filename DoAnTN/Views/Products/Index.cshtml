@@ -1,7 +1,7 @@
-﻿@model IEnumerable<DoAnTN.Models.Product>
-@*@model X.PagedList.IPagedList<DoAnTN.Models.Product>*@
-<!--@using PagedList.Core.Mvc;
-@using X.PagedList.Mvc.Core;-->
+﻿@model PagedList.Core.IPagedList<DoAnTN.Models.Product>
+@addTagHelper *, PagedList.Core.Mvc
+@using PagedList.Core.Mvc;
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -11,121 +11,62 @@
 
 <p>
     <a asp-action="CreateProduct">Thêm mới sản phẩm</a>
-</p>
-<table class="table table-bordered" style="text-align: center">
-    <thead>
-        <tr>
-            <th>
-                Tên sản phẩm
-            </th>
-            <th>
-                Hình ảnh
-            </th>
-            <th>
-                Giá
-            </th>
-            <th>
-                Loại sản phẩm
-            </th>
-            <th>
-                Ngày cập nhật
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    @using (Html.BeginForm())
+    {
+    <p>
+        @Html.TextBox("SearchString", null, new { @placeholder = "Tìm kiếm" })<input type="submit" value="Tìm kiếm" />
+    </p>
+}
+    </p>
+    <table class="table table-bordered" style="text-align: center">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    <img src="@Url.Content("~/image/" + item.ImagePath)" width="150px" height="150px" asp-append-version="true" />
-                </td>
-                <td>
-                    @item.SellCost.ToString("#,###")
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastUpdate)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success">Details</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-                </td>
+                <th>
+                    Tên sản phẩm
+                </th>
+                <th>
+                    Hình ảnh
+                </th>
+                <th>
+                    Giá
+                </th>
+                <th>
+                    Loại sản phẩm
+                </th>
+                <th>
+                    Ngày cập nhật
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
-
-<br />
-@*Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
-    @Html.PagedListPager(Model, page => Url.Action("Index", "Products", new { page }))*@
-
-<ul class="pagination">
-    @{
-        int numberPage = ViewBag.numberPage;
-        int pageCurrent = ViewBag.pageCurrent;
-        int offset = 2;//number display page
-
-
-        //config FirstLink
-        if (pageCurrent > 1)
-        {
-            int prevPage = pageCurrent - 1;
-            var PrevLink = new Dictionary<string, string> { { "page", prevPage.ToString() } };
-            <li><a asp-controller="Products" asp-action="Index" asp-all-route-data="PrevLink" class="btn btn-sm btn-outline-primary">Prev Link</a></li>
-        }
-
-        int from = pageCurrent - offset;
-        int to = pageCurrent + offset;
-        if (from <= 0)
-        {
-            from = 1;
-            to = offset * 2;
-        }
-
-
-        if (to > numberPage)
-        {
-            to = numberPage;
-        }
-
-        int i;
-        for (i = from; i <= to; i++)
-        {
-            var parms = new Dictionary<string, string>
-                {
-                        { "page",i.ToString()}
-                    };
-            if (pageCurrent == i)
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
             {
-                <li class="active"><a asp-controller="Products" asp-action="Index" asp-all-route-data="parms" class="btn btn-sm btn-primary">@i</a></li>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        <img src="@Url.Content("~/image/" + item.ImagePath)" width="100px" height="100px" asp-append-version="true" />
+                    </td>
+                    <td>
+                        @item.SellCost.ToString("#,###")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastUpdate)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" style="margin-left: 10px"><i class="far fa-edit"></i></a>
+                        <a asp-action="Details" asp-route-id="@item.Id" style="margin-left: 10px; margin-right: 10px"><i class="far fa-clipboard"></i></a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" style="margin-right: 10px"><i class="far fa-trash-alt"></i></a>
+                    </td>
+                </tr>
             }
-            else
-            {
-                <li><a asp-controller="Products" asp-action="Index" asp-all-route-data="parms" class="btn btn-sm btn-outline-primary">@i</a></li>
-            }
+        </tbody>
+    </table>
 
-        }
-
-        if (pageCurrent < numberPage - (to / 2))
-        {
-            <li><a>...</a></li>
-            var LastLink = new Dictionary<string, string> { { "page", numberPage.ToString() } };
-            <li><a asp-controller="Products" asp-action="Index" asp-all-route-data="LastLink" class="btn btn-sm btn-outline-primary">Last Link</a></li>
-        }
-
-        if (pageCurrent < numberPage)
-        {
-            int nextPage = pageCurrent + 1;
-            var NextLink = new Dictionary<string, string> { { "page", nextPage.ToString() } };
-            <li><a asp-controller="Products" asp-action="Index" asp-all-route-data="NextLink" class="btn btn-sm btn-outline-primary">Next Link</a></li>
-        }
-    }
-</ul>
-
+    <br />
+    <pager class="pager-container" list="@Model" asp-action="Index" asp-controller="Products" />

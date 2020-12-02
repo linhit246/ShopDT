@@ -1,11 +1,12 @@
-﻿@model IEnumerable<DoAnTN.Models.Product>
+﻿@model PagedList.Core.IPagedList<DoAnTN.Models.Product>
+@addTagHelper *, PagedList.Core.Mvc
+@using PagedList.Core.Mvc;
 @{
     ViewData["Title"] = "IndexClient";
     Layout = "~/Views/Shared/_LayoutClient.cshtml";
 }
 <div class="content_top" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0 0 10px; margin-bottom: 10px">
     <h4 style="font-weight: bold">Sản phẩm mới</h4>
-    <p style="margin-right: 10px"><a asp-action="IndexClientAll" asp-controller="Products">Xem tất cả</a></p>
     @*<div class="clear"></div>*@
 </div>
 <div class="row">
@@ -24,3 +25,4 @@
         </div>
     }
 </div>
+<pager class="pager-container" list="@Model" asp-action="IndexClient" asp-controller="Products" />

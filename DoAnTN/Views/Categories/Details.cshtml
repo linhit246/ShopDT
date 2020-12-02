@@ -5,10 +5,9 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Chi tiết danh mục</h2>
 
 <div>
-    <h4>Category</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -24,18 +23,6 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.IsDelete)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IsDelete)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IsDisplay)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IsDisplay)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.LastUpdate)
         </dt>
         <dd>
@@ -44,6 +31,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Chỉnh sửa</a> |
+    <a asp-action="Index">Trở về</a>
 </div>

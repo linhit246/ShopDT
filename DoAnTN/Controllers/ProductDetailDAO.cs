@@ -18,6 +18,11 @@ namespace DoAnTN.Models
             return product.ToList();
         }
 
+        public List<Category> ListCategory()
+        {
+            var category = _context.Categories;
+            return category.ToList();
+        }
         public Product ListProduct(int id)
         {
             var product = _context.Products.Find(id);

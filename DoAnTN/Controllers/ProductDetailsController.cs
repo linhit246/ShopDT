@@ -9,6 +9,7 @@ using DoAnTN.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.Extensions.FileProviders;
+using PagedList.Core;
 
 namespace DoAnTN.Controllers
 {
@@ -22,10 +23,25 @@ namespace DoAnTN.Controllers
         }
 
         // GET: ProductDetails
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page, string? searchString)
         {
-            var shopDienThoaiContext = _context.ProductDetails.Include(p => p.Product).OrderByDescending(p => p.LastUpdate);
-            return View(await shopDienThoaiContext.ToListAsync());
+            if (page == null)
+            {
+                page = 1;
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            var shopDienThoaiContext = _context.ProductDetails.Include(p => p.Product).OrderByDescending(p => p.LastUpdate).Where(x => x.IsDelete == false && x.Product.IsDelete == false);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                var onePage = shopDienThoaiContext.Where(x => x.ProductColor.Contains(searchString) || x.Product.Name.Contains(searchString)).ToPagedList(pageNumber, pageSize);
+                return View(onePage);
+            }
+            else
+            {
+                var onePage = shopDienThoaiContext.ToPagedList(pageNumber, pageSize);
+                return View(onePage);
+            }
         }
         public async Task<IActionResult> IndexClient(int id)
         {

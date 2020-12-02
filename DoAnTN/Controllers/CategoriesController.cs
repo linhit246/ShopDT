@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DoAnTN.Models;
+using DoAnTN.Helpers;
 
 namespace DoAnTN.Controllers
 {
@@ -19,11 +20,41 @@ namespace DoAnTN.Controllers
         }
 
         // GET: Categories
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? searchString)
         {
-            return View(await _context.Categories.ToListAsync());
+            if (SessionHelper.GetSession<User>(HttpContext.Session, "Login") == null)
+            {
+                return RedirectToAction("Login", "Users");
+            }
+            else
+            {
+                var user = SessionHelper.GetSession<User>(HttpContext.Session, "Login");
+                var role = _context.UserRoles.Where(x => x.UserId == user.Id).Include(p => p.Role);
+                bool check = false;
+                foreach (var item in role)
+                {
+                    if (item.Role.Role1 == 1 || item.Role.Role1 == 2)
+                    {
+                        check = true;
+                    }
+                }
+                if (check)
+                {
+                    var categories = _context.Categories.Where(x => x.IsDelete == false);
+                    if (!String.IsNullOrEmpty(searchString))
+                    {
+                        var Search = categories.Where(x => x.Name.Contains(searchString));
+                        return View(await Search.ToListAsync());
+                    }
+                    return View(await categories.ToListAsync());
+                }
+                else
+                {
+                    return RedirectToAction("IndexClient", "Products");
+                }
+            }
+            
         }
-
         // GET: Categories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -139,7 +170,8 @@ namespace DoAnTN.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var category = await _context.Categories.FindAsync(id);
-            _context.Categories.Remove(category);
+            _ = category.IsDelete == true;
+            _context.Categories.Update(category);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

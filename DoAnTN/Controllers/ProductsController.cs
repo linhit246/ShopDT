@@ -11,75 +11,62 @@ using System.IO;
 using Microsoft.Extensions.FileProviders;
 using DoAnTN.Helpers;
 using PagedList.Core;
+using System.Linq.Dynamic.Core;
 
 namespace DoAnTN.Controllers
 {
     public class ProductsController : Controller
     {
         private readonly ShopDienThoaiContext _context;
-        private readonly IpaginationService _page;
 
 
-        public ProductsController(ShopDienThoaiContext context, IpaginationService pages)
+        public ProductsController(ShopDienThoaiContext context)
         {
             _context = context;
-            _page = pages;
         }
 
-        // GET: Products
-        //public async Task<IActionResult> Index(int? page)
-        //{
-        //    if (page == null)
-        //    {
-        //        page = 1;
-        //    }
-        //    int pageSize = 10;
-        //    int pageNumber = (page ?? 1);
-        //    var shopDienThoaiContext = _context.Products.Include(p => p.Category).OrderByDescending(x => x.LastUpdate).Where(x => x.IsDelete == false);
-        //    return View(shopDienThoaiContext.ToPagedList(pageNumber, pageSize));
-        //}
-
-
-        public IActionResult Index(int? page = 0)
+        //GET: Products
+        public async Task<IActionResult> Index(int? page, string? searchString)
         {
-            int limit = 5;
-            int start;
-            if (page > 0)
-            {
-                page = page;
-            }
-            else
+            if (page == null)
             {
                 page = 1;
             }
-            start = (int)(page - 1) * limit;
-
-            ViewBag.pageCurrent = page;
-
-            int totalProduct = _page.totalProduct();
-
-            ViewBag.totalProduct = totalProduct;
-
-            ViewBag.numberPage = _page.numberPage(totalProduct, limit);
-
-            var data = _page.paginationProduct(start, limit);
-
-            return View(data);
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            var shopDienThoaiContext = _context.Products.Include(p => p.Category).OrderByDescending(x => x.LastUpdate).Where(x => x.IsDelete == false && x.Category.IsDelete == false);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                var onePage = shopDienThoaiContext.Where(x => x.Name.Contains(searchString)).ToPagedList(pageNumber, pageSize);
+                return View(onePage);
+            }
+            else
+            {
+                var onePage = shopDienThoaiContext.ToPagedList(pageNumber, pageSize);
+                return View(onePage);
+            }
         }
-
-
-    public async Task<IActionResult> IndexClient()
+        public async Task<IActionResult> IndexClient(int? page, string? searchString)
         {
-           
-            var shopDienThoaiContext = _context.Products.Include(p => p.Category).OrderByDescending(x => x.LastUpdate).Where(x => x.IsDelete == false).Take(8);
-            return View(await shopDienThoaiContext.ToListAsync());
+            ViewBag.Categories = new ProductDetailDAO().ListCategory();
+            if (page == null)
+            {
+                page = 1;
+            }
+            int pageSize = 8;
+            int pageNumber = (page ?? 1);
+            var shopDienThoaiContext = _context.Products.Include(p => p.Category).OrderByDescending(x => x.LastUpdate).Where(x => x.IsDelete == false && x.Category.IsDelete == false);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                var onePage = shopDienThoaiContext.Where(x => x.Name.Contains(searchString)).ToPagedList(pageNumber, pageSize);
+                return View(onePage);
+            }
+            else
+            {
+                var onePage = shopDienThoaiContext.ToPagedList(pageNumber, pageSize);
+                return View(onePage);
+            }
         }
-        public async Task<IActionResult> IndexClientAll()
-        {
-            var shopDienThoaiContext = _context.Products.Include(p => p.Category).OrderByDescending(x => x.LastUpdate).Where(x => x.IsDelete == false);
-            return View(await shopDienThoaiContext.ToListAsync());
-        }
-
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -182,8 +169,10 @@ namespace DoAnTN.Controllers
             {
                 return NotFound();
             }
+            ViewBag.id = id;
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", product.CategoryId);
-            return View(product);
+            ViewBag.Products = product;
+            return View();
         }
 
         // POST: Products/Edit/5
@@ -191,23 +180,23 @@ namespace DoAnTN.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CategoryId,ImagePath,SellCost,IsDelete,IsDisplay,LastUpdate")] Product product)
+        public async Task<IActionResult> Edit(int id, ProductDTO productDTO)
         {
-            if (id != product.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(product);
+                    var p = await _context.Products.FindAsync(id);
+                    p.Name = productDTO.Name;
+                    p.CategoryId = productDTO.CategoryId;
+                    p.ImagePath = UploadedFile(productDTO.ImagePath);
+                    p.SellCost = productDTO.SellCost;
+                    _context.Update(p);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.Id))
+                    if (!ProductExists(id))
                     {
                         return NotFound();
                     }
@@ -218,6 +207,7 @@ namespace DoAnTN.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            var product = await _context.Products.FindAsync(id);
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", product.CategoryId);
             return View(product);
         }

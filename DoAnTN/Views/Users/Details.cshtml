@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
-    var list = ViewBag.Order;
+    var list = ViewBag.product;
     var address = ViewBag.Address;
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
@@ -23,13 +23,24 @@
     </div>
     <div class="col-8 modal-content">
         <div class="modal-header">
-            Sổ địa chỉ | 
-            <span><a asp-action="Edit" asp-route-id="@Model.Id" asp-controller="Addresses">Chỉnh sửa</a></span>
+            Sổ địa chỉ @if (address != null)
+            {
+                <span><a asp-action="Edit" asp-route-id="@Model.Id" asp-controller="Addresses">Chỉnh sửa</a></span>
+            }
         </div>
         <div class="modal-body">
-            <p>Họ tên: @Model.FirstName @Model.LastName</p>
-            <p>Số điện thoại: @address.Phone</p>
-            <p>Địa chỉ: @address.City - @address.District - @address.Address1</p>
+            @if (address != null)
+            {
+                <p>Họ tên: @Model.FirstName @Model.LastName</p>
+                <p>
+                    Số điện thoại: @address.Phone
+                </p>
+                <p>Địa chỉ: @address.City - @address.District - @address.Address1</p>
+            }
+            else
+            {
+                <p>Bạn chưa có địa chỉ. Thêm địa chỉ <a asp-action="Create" asp-controller="Addresses">tại đây</a></p>
+            }
         </div>
     </div>
 </div>
@@ -56,9 +67,8 @@
                         <tr>
                             <td>@item.Id</td>
                             <td>@item.OrderDate</td>
-                            <td>Sản phẩm</td>
+                            <td>@item.ImagePath</td>
                             <td>@item.Total</td>
-                            <td></td>
                         </tr>
                         }
                     </tbody>

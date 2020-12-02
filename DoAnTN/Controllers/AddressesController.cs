@@ -72,7 +72,7 @@ namespace DoAnTN.Controllers
                 address.UserId = userId.Id;
                 _context.Add(address);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Users", new {@id = userId.Id });
             }
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "FirstName", address.UserId);
             return View(address);
@@ -86,7 +86,7 @@ namespace DoAnTN.Controllers
                 return NotFound();
             }
 
-            var address = await _context.Addresses.FindAsync(id);
+            var address = _context.Addresses.Where(x => x.UserId == id).FirstOrDefault();
             if (address == null)
             {
                 return NotFound();
@@ -138,7 +138,6 @@ namespace DoAnTN.Controllers
             {
                 return NotFound();
             }
-
             var address = await _context.Addresses
                 .Include(a => a.User)
                 .FirstOrDefaultAsync(m => m.Id == id);

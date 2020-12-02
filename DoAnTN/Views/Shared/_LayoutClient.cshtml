@@ -1,5 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Http
 @using DoAnTN.Helpers
+@{
+    var listCategory = ViewBag.Categories;
+}
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -91,17 +94,19 @@ string Fname = x.FirstName + " " + x.LastName;
                     <ul style="margin: 0; list-style-type: none">
                         <li class="active"><a asp-action="IndexClient" asp-controller="Products">Trang Chủ</a></li>
                         <li><a asp-action="IndexClient" asp-controller="Products">Điện Thoại</a></li>
-                        <li><a href="delivery.html">Iphone</a></li>
-                        <li><a href="news.html">Giới Thiệu</a></li>
-                        <li><a href="contact.html">Liên Hệ</a></li>
+                        <li><a href="">Iphone</a></li>
+                        <li><a href="">Giới Thiệu</a></li>
+                        <li><a href="">Liên Hệ</a></li>
                     </ul>
                     <div class="clear"></div>
                 </div>
-                @*<div class="search_box">
-                        <form>
-                            <input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}"><input type="submit" value="">
-                        </form>
-                    </div>*@
+                <div class="search_box">
+                    @using (Html.BeginForm())
+                    {
+        <p style="margin-bottom: 0">
+            @Html.TextBox("SearchString", null, new { @style = "width: 100%", @placeholder = "Tìm kiếm" })<input type="submit" value="" />
+        </p>}
+                </div>
                 <div class="clear"></div>
             </div>
             <div class="header_slide">
@@ -109,14 +114,10 @@ string Fname = x.FirstName + " " + x.LastName;
                     <div class="categories">
                         <h3>Danh mục sản phẩm</h3>
                         <ul>
-                            <li><a href="#">Iphone</a></li>
-                            <li><a href="#">Xiaomi</a></li>
-                            <li><a href="#">Vsmart</a></li>
-                            <li><a href="#">Realme</a></li>
-                            <li><a href="#">Vivo</a></li>
-                            <li><a href="#">Samsung</a></li>
-                            <li><a href="#">Huawei</a></li>
-                            <li><a href="#">Oppo</a></li>
+                            @foreach (var item in listCategory)
+                            {
+                                <li><a href="">@item.Name</a></li>
+                            }
                         </ul>
                     </div>
                 </div>

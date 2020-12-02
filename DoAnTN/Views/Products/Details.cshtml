@@ -5,57 +5,56 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Chi tiết sản phẩm</h2>
 
 <div>
-    <h4>Product</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ImagePath)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ImagePath)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.SellCost)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.SellCost)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IsDelete)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IsDelete)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IsDisplay)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IsDisplay)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.LastUpdate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.LastUpdate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Category.Name)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addProductLabel">Thông tin</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ImagePath)
+                    </dt>
+                    <dd>
+                        <img src="@Url.Content("~/image/" + Model.ImagePath)" width="150px" height="150px" asp-append-version="true" />
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.SellCost)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.SellCost)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.LastUpdate)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.LastUpdate)
+                    </dd>
+                    <dt>
+                        Loại sản phẩm
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Category.Name)
+                    </dd>
+                </dl>
+                <div>
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Chỉnh sửa</a> |
+                    <a asp-action="Index" class="btn btn-secondary">Đóng</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

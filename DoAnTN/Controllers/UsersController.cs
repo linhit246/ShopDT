@@ -43,8 +43,15 @@ namespace DoAnTN.Controllers
             {
                 return NotFound();
             }
-            var order = _context.Orders.Where(x => x.UserId == id);
-            ViewBag.Order = order;
+            var product = from or in _context.Orders
+                          join od in _context.OrderDetails on or.Id equals od.OrderId
+                          join pd in _context.ProductDetails on od.ProductDetailId equals pd.Id
+                          select new
+                          {
+                              pd.ImagePath, or.Id, or.Total, or.OrderDate, or.UserId
+                          };
+            var order = product.Where(x => x.UserId == id);
+            ViewBag.product = order.ToList();
             var user = await _context.Users
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (user == null)
@@ -87,6 +94,12 @@ namespace DoAnTN.Controllers
                     u.BirthDay = userDTO.BirthDay;
                     _context.Add(u);
                     await _context.SaveChangesAsync();
+                    var x = _context.Users.Where(x => x.Username == userDTO.Username).FirstOrDefault();
+                    UserRole r = new UserRole();
+                    r.UserId = x.Id;
+                    r.RoleId = 3;
+                    _context.Add(r);
+                    await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
             }
@@ -128,7 +141,23 @@ namespace DoAnTN.Controllers
                 {
                     var user = _context.Users.Where(x => x.Username == login.UserName).FirstOrDefault();
                     SessionHelper.SetSession(HttpContext.Session, "Login", user);
-                    return RedirectToAction("IndexClient","Products");
+                    var role = _context.UserRoles.Where(x => x.UserId == user.Id).Include(p => p.Role);
+                    bool check = false;
+                    foreach (var item in role)
+                    {
+                        if (item.Role.Role1 == 1 || item.Role.Role1 == 2)
+                        {
+                            check = true;
+                        }
+                    }
+                    if (check)
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    else
+                    {
+                        return RedirectToAction("IndexClient", "Products");
+                    }
                 }
                 else if (CheckLogin(login) == -1)
                 {

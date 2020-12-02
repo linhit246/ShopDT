@@ -1,63 +1,52 @@
-﻿@model DoAnTN.Models.Product
+﻿@model DoAnTN.Models.ProductDTO
 
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var id = ViewBag.id;
+    var product = ViewBag.Products;
 }
 
-<h2>Edit</h2>
-
-<h4>Product</h4>
+<h2>Chỉnh sửa thông tin sản phẩm</h2>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImagePath" class="control-label"></label>
-                <input asp-for="ImagePath" class="form-control" />
-                <span asp-validation-for="ImagePath" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SellCost" class="control-label"></label>
-                <input asp-for="SellCost" class="form-control" />
-                <span asp-validation-for="SellCost" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IsDelete" class="control-label"></label>
-                <input asp-for="IsDelete" class="form-control" />
-                <span asp-validation-for="IsDelete" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IsDisplay" class="control-label"></label>
-                <input asp-for="IsDisplay" class="form-control" />
-                <span asp-validation-for="IsDisplay" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastUpdate" class="control-label"></label>
-                <input asp-for="LastUpdate" class="form-control" />
-                <span asp-validation-for="LastUpdate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="addProductLabel">Thêm sản phẩm</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="@id" />
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" value="@product.Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CategoryId" class="control-label"></label>
+                    <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Hình ảnh</label>
+                    <input asp-for="ImagePath" name="ImagePath" value="@product.ImagePath" class="form-control-file" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="SellCost" class="control-label"></label>
+                    <input asp-for="SellCost" value="@product.SellCost" class="form-control" />
+                    <span asp-validation-for="SellCost" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Lưu" class="btn btn-primary" /> |
+                    <a class="btn btn-secondary" asp-action="Index" asp-controller="Products">Đóng</a>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

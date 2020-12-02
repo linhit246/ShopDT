@@ -85,10 +85,6 @@
             "System.Linq.Dynamic.Core": {
               "target": "Package",
               "version": "[1.2.6, )"
-            },
-            "X.PagedList.Mvc.Core": {
-              "target": "Package",
-              "version": "[8.0.7, )"
             }
           },
           "imports": [
