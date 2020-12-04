@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Sổ địa chỉ</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Thêm địa chỉ</a>
 </p>
 <table class="table">
     <thead>
@@ -33,15 +33,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsDelete)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsDisplay)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastUpdate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.User)
@@ -75,18 +66,10 @@
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.IsDelete)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsDisplay)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastUpdate)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.User.FirstName)
                 </td>
                 <td>
+                    <a asp-action="Accept" asp-route-id="@item.Id" style="margin-left: 10px"><i class="fas fa-check"></i></a>
                     <a asp-action="Edit" asp-route-id="@item.Id" style="margin-left: 10px"><i class="far fa-edit"></i></a>
                     <a asp-action="Details" asp-route-id="@item.Id" style="margin-left: 10px; margin-right: 10px"><i class="far fa-clipboard"></i></a>
                     <a asp-action="Delete" asp-route-id="@item.Id" style="margin-right: 10px"><i class="far fa-trash-alt"></i></a>

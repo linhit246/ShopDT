@@ -56,7 +56,7 @@ namespace DoAnTN.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Storage,Ram,Fcamera,Scamera,Cpu,Resolution,Battery,Os,ScreenSize,SimNumber,FastCharge,Sdcard,LastUpdate")] Specification specification)
+        public async Task<IActionResult> Create(Specification specification)
         {
             if (ModelState.IsValid)
             {

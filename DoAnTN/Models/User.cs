@@ -18,13 +18,19 @@ namespace DoAnTN.Models
         }
 
         public int Id { get; set; }
+        [Display(Name = "Tên đăng nhập")]
         public string Username { get; set; }
         public string Password { get; set; }
+        [Display(Name = "Ảnh đại diện")]
         public string Avatar { get; set; } = "user.jpg";
+        [Display(Name = "Họ")]
         public string FirstName { get; set; }
+        [Display(Name = "Tên")]
         public string LastName { get; set; }
+        [Display(Name = "Giới tính")]
         public string Gender { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [Display(Name = "Ngày sinh")]
         public DateTime? BirthDay { get; set; }
         public bool? IsDelete { get; set; } = false;
         public bool? IsDisplay { get; set; } = true;

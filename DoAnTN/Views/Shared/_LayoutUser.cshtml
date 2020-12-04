@@ -115,7 +115,6 @@
                             <h5 class="row"><a asp-action="Details" asp-controller="Users" asp-route-id="@user.Id">Quản lí tài khoản</a></h5>
                             <a class="row" asp-action="Edit" asp-controller="Users" asp-route-id="@user.Id" style="margin-left: 10px; color: black"><i class="fas fa-user-circle" style="margin-right: 5px"></i>Thông tin cá nhân</a>
                             <a class="row" asp-action="IndexClient" asp-controller="Addresses" asp-route-id="@user.Id" style="margin-left: 10px; color: black"><i class="far fa-clipboard" style="margin-right: 5px"></i>Sổ địa chỉ</a>
-                            <a class="row" asp-action="Index" asp-controller="ManagementSaleCodes" asp-route-id="@user.Id" style="margin-left: 10px; color: black"><i class="fas fa-wallet" style="margin-right: 5px"></i>Mã giảm giá</a>
                             <h5 class="row"><a asp-action="IndexClient" asp-controller="Orders" asp-route-id="@user.Id">Đơn hàng của tôi</a></h5>
                         </div>
                     </div>

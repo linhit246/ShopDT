@@ -43,15 +43,24 @@ namespace DoAnTN.Controllers
             {
                 return NotFound();
             }
-            var product = from or in _context.Orders
-                          join od in _context.OrderDetails on or.Id equals od.OrderId
-                          join pd in _context.ProductDetails on od.ProductDetailId equals pd.Id
-                          select new
-                          {
-                              pd.ImagePath, or.Id, or.Total, or.OrderDate, or.UserId
-                          };
-            var order = product.Where(x => x.UserId == id);
-            ViewBag.product = order.ToList();
+            //var product = from order in _context.Orders
+            //              join orderDetail in _context.OrderDetails on order.Id equals orderDetail.OrderId
+            //              join productDetail in _context.ProductDetails on orderDetail.ProductDetailId equals productDetail.Id
+            //              where order.UserId == id
+            //              group new {order, orderDetail, productDetail} by new {order.Id} into z
+            //              select new { Id = z.Select(x => x.order.Id),ImagePath = z.Select(x => x.productDetail.ImagePath) };
+            var product = _context.Orders.Include(x => x.OrderDetails).ThenInclude(y => y.ProductDetail).Where(z => z.UserId == id).OrderByDescending(x => x.OrderDate);
+            List<OrderDTO> orders = new List<OrderDTO>();
+            foreach (var item in product)
+            {
+                OrderDTO od = new OrderDTO();
+                od.Id = item.Id;
+                od.ImagePath = item.OrderDetails.FirstOrDefault().ProductDetail.ImagePath;
+                od.OrderDate = item.OrderDate;
+                od.Total = item.Total;
+                orders.Add(od);
+            }
+            ViewBag.product = orders;
             var user = await _context.Users
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (user == null)

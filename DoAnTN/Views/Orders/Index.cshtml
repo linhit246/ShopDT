@@ -6,7 +6,9 @@
 }
 
 <h2>Danh sách đơn hàng</h2>
-
+<p>
+    <a asp-action="ExportToExcel" asp-controller="Statistics">Tạo file báo cáo</a>
+</p>
 <table class="table table-bordered" style="text-align: center">
     <thead>
         <tr>
@@ -56,15 +58,15 @@
                 <td>
                     @(item.Status?"Đã duyệt":"Chờ xác nhận") 
                     <br />
-                    <a id="@item.Id" asp-action="Accept" asp-route-id="@item.Id" class="btn btn-success btn-sm">Duyệt</a>
                 </td>
                 <td>
                     @item.Total.ToString("#,###")
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Edit</a>
-                    <a asp-action="IndexDetail" asp-route-id="@item.Id" asp-controller="OrderDetails" class="btn btn-sm btn-success">Details</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                    <a asp-action="Accept" asp-route-id="@item.Id" style="margin-left: 10px"><i class="fas fa-check"></i></a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" style="margin-left: 10px"><i class="far fa-edit"></i></a>
+                    <a asp-action="IndexDetail" asp-controller="OrderDetails" asp-route-id="@item.Id" style="margin-left: 10px; margin-right: 10px"><i class="far fa-clipboard"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" style="margin-right: 10px"><i class="far fa-trash-alt"></i></a>
                 </td>
             </tr>
         }

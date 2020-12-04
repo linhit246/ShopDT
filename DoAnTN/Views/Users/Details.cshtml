@@ -1,10 +1,11 @@
 ﻿@model DoAnTN.Models.User
-
+@using System.Linq; 
 @{
     ViewData["Title"] = "Details";
-    var list = ViewBag.product;
+    var list = (List<OrderDTO>)ViewBag.product;
     var address = ViewBag.Address;
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    var x = 0;
 }
 
 <div class="row">
@@ -64,12 +65,12 @@
                     <tbody>
                         @foreach (var item in list)
                         {
-                        <tr>
-                            <td>@item.Id</td>
-                            <td>@item.OrderDate</td>
-                            <td>@item.ImagePath</td>
-                            <td>@item.Total</td>
-                        </tr>
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.OrderDate</td>
+                                    <td><img src="@Url.Content("~/image/" + item.ImagePath)" width="50px" height="50px" asp-append-version="true" /></td>
+                                    <td>@item.Total</td>
+                                </tr>
                         }
                     </tbody>
                 </table>

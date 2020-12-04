@@ -85,7 +85,7 @@ namespace DoAnTN.Controllers
                 var user = SessionHelper.GetSession<User>(HttpContext.Session, "Login");
                 if (user != null)
                 {
-                    var address = _context.Addresses.Where(x => x.UserId == user.Id && x.Status == true).FirstOrDefault();
+                    var address = _context.Addresses.Where(x => x.UserId == user.Id && x.Status == true).OrderByDescending(x => x.LastUpdate).FirstOrDefault();
                     if (address != null)
                     {
                         ViewBag.Address = address;

@@ -22,7 +22,7 @@ namespace DoAnTN.Controllers
         // GET: Comments
         public async Task<IActionResult> Index()
         {
-            var shopDienThoaiContext = _context.Comments.Include(c => c.Product).Include(c => c.User);
+            var shopDienThoaiContext = _context.Comments.Include(c => c.Product).Include(c => c.User).OrderByDescending(x => x.CommentDate);
             return View(await shopDienThoaiContext.ToListAsync());
         }
 
@@ -165,6 +165,14 @@ namespace DoAnTN.Controllers
         private bool CommentExists(int id)
         {
             return _context.Comments.Any(e => e.Id == id);
+        }
+        public async Task<IActionResult> Accept(int id)
+        {
+            var order = await _context.Comments.FindAsync(id);
+            order.Status = true;
+            _context.Comments.Update(order);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

@@ -51,10 +51,10 @@ namespace DoAnTN.Controllers
                     worksheet.Cell(1, 4).Value = "Số điện thoại";
                     worksheet.Cell(1, 5).Value = "Địa chỉ";
                     worksheet.Cell(1, 6).Value = "Ngày đặt hàng";
-                    worksheet.Cell(1, 7).Value = "Ngày giao hàng";
-                    worksheet.Cell(1, 8).Value = "Trạng thái";
-                    worksheet.Cell(1, 9).Value = "Mã giảm giá";
-                    worksheet.Cell(1, 10).Value = "Tổng tiền";
+                    //worksheet.Cell(1, 7).Value = "Ngày giao hàng";
+                    //worksheet.Cell(1, 8).Value = "Trạng thái";
+                    //worksheet.Cell(1, 9).Value = "Mã giảm giá";
+                    worksheet.Cell(1, 7).Value = "Tổng tiền";
                     int i = 1;
                     foreach (var item in shopDienThoaiContext)
                     {
@@ -64,16 +64,16 @@ namespace DoAnTN.Controllers
                         worksheet.Cell(i + 1, 4).Value = "(+84)" + item.Phone;
                         worksheet.Cell(i + 1, 5).Value = item.Address;
                         worksheet.Cell(i + 1, 6).Value = item.OrderDate;
-                        worksheet.Cell(i + 1, 7).Value = item.ClosedDate;
-                        worksheet.Cell(i + 1, 8).Value = item.Status;
-                        worksheet.Cell(i + 1, 9).Value = item.SaleCodeId;
-                        worksheet.Cell(i + 1, 10).Value = item.Total.ToString("#,###") + " đ";
+                        //worksheet.Cell(i + 1, 7).Value = item.ClosedDate;
+                        //worksheet.Cell(i + 1, 8).Value = item.Status;
+                        //worksheet.Cell(i + 1, 9).Value = item.SaleCodeId;
+                        worksheet.Cell(i + 1, 7).Value = item.Total.ToString("#,###") + " đ";
                         i++;
                     }
-                    worksheet.Cell(i + 1, 9).Value = "Doanh thu";
-                    worksheet.Cell(i + 1, 10).Value = tongtien.ToString("#,###") + " đ";
-                    worksheet.Cell(i + 1, 10).Style.Font.SetFontColor(XLColor.Red);
-                    SetHeader(ref worksheet, i + 1, 9);
+                    worksheet.Cell(i + 1, 6).Value = "Doanh thu";
+                    worksheet.Cell(i + 1, 7).Value = tongtien.ToString("#,###") + " đ";
+                    worksheet.Cell(i + 1, 7).Style.Font.SetFontColor(XLColor.Red);
+                    SetHeader(ref worksheet, i + 1, 6);
                     for (i = 1; i <= 10; i++)
                     {
                         SetHeader(ref worksheet, 1, i);

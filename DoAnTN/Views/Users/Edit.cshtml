@@ -5,9 +5,7 @@
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 
-<h2>Edit</h2>
-
-<h4>User</h4>
+<h2>Thông tin cá nhân</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -20,13 +18,10 @@
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Avatar" class="control-label"></label>
-                <input asp-for="Avatar" class="form-control" />
+                <br />
+                <img src="@Url.Content("~/image/user/" + Model.Avatar)" width="150px" height="150px"/>
+                <input asp-for="Avatar" class="form-control" hidden/>
                 <span asp-validation-for="Avatar" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -50,29 +45,10 @@
                 <span asp-validation-for="BirthDay" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IsDelete" class="control-label"></label>
-                <input asp-for="IsDelete" class="form-control" />
-                <span asp-validation-for="IsDelete" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IsDisplay" class="control-label"></label>
-                <input asp-for="IsDisplay" class="form-control" />
-                <span asp-validation-for="IsDisplay" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastUpdate" class="control-label"></label>
-                <input asp-for="LastUpdate" class="form-control" />
-                <span asp-validation-for="LastUpdate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Lưu" class="btn btn-primary" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

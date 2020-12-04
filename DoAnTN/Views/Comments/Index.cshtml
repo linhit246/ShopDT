@@ -5,11 +5,7 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h2>Bình luận</h2>
 <table class="table">
     <thead>
         <tr>
@@ -21,9 +17,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CommentDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImagePath)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Status)
@@ -50,21 +43,17 @@
                 @Html.DisplayFor(modelItem => item.CommentDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImagePath)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Product.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.FirstName)
+                @Html.DisplayFor(modelItem => item.User.LastName)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Accept" asp-route-id="@item.Id" style="margin-left: 10px"><i class="fas fa-check"></i></a>
+                <a asp-action="Delete" asp-route-id="@item.Id" style="margin-right: 10px"><i class="far fa-trash-alt"></i></a>
             </td>
         </tr>
 }
