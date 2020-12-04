@@ -1,1 +1,0 @@
-RESTORE DATABASE OnlineShop FROM DISK = 'D:\Data\OnlineShop.bak' WITH MOVE 'OnlineShop' TO 'D:\Data\OnlineShop.mdf', MOVE 'OnlineShop_log' TO 'D:\Data\OnlineShop_Log.ldf'
