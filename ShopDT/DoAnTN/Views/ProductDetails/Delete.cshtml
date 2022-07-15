@@ -1,0 +1,51 @@
+﻿@model DoAnTN.Models.ProductDetail
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Xóa chi tiết sản phẩm</h2>
+
+<h3>Bạn có chắc chắn muốn xóa chi tiết sản phẩm này?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên sản phẩm
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductColor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProductColor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </dt>
+        <dd>
+            <img src="@Url.Content("~/image/" + Model.ImagePath)" width="150px" height="150px" />
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastUpdate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastUpdate)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Xóa" class="btn btn-danger" /> |
+        <a asp-action="Index">Trở về</a>
+    </form>
+</div>

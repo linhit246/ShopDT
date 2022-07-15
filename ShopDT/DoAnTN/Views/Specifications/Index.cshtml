@@ -1,0 +1,102 @@
+﻿@model IEnumerable<DoAnTN.Models.Specification>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Thông số kĩ thuật</h2>
+
+<p>
+    <a asp-action="Create">Thêm mới</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Storage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ram)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fcamera)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Scamera)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cpu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Resolution)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Battery)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Os)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ScreenSize)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SimNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FastCharge)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sdcard)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Storage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ram)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fcamera)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Scamera)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cpu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Resolution)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Battery)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Os)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScreenSize)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SimNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FastCharge)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sdcard)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" style="margin-left: 10px"><i class="far fa-edit"></i></a>
+                    <a asp-action="Details" asp-route-id="@item.Id" style="margin-left: 10px; margin-right: 10px"><i class="far fa-clipboard"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" style="margin-right: 10px"><i class="far fa-trash-alt"></i></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

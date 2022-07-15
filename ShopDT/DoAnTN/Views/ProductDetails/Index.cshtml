@@ -1,0 +1,71 @@
+﻿@model PagedList.Core.IPagedList<DoAnTN.Models.ProductDetail>
+@addTagHelper *, PagedList.Core.Mvc
+@using PagedList.Core.Mvc;
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Danh sách chi tiết sản phẩm</h2>
+
+<p>
+    <a asp-action="CreateProductDetail">Thêm mới chi tiết sản phẩm</a>
+    @using (Html.BeginForm())
+    {
+    <p>
+        @Html.TextBox("SearchString", null, new { @placeholder = "Tìm kiếm" })<input type="submit" value="Tìm kiếm" />
+    </p>
+}
+    </p>
+    <table class="table table-bordered" style="text-align: center">
+        <thead>
+            <tr>
+                <th>
+                    Tên sản phẩm
+                </th>
+                <th>
+                    Số lượng
+                </th>
+                <th>
+                    Màu
+                </th>
+                <th>
+                    Hình ảnh
+                </th>
+                <th>
+                    Ngày cập nhật
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductColor)
+                    </td>
+                    <td>
+                        <img src="@Url.Content("~/image/" + item.ImagePath)" width="100px" height="100px" asp-append-version="true" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastUpdate)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" style="margin-left: 10px"><i class="far fa-edit"></i></a>
+                        <a asp-action="Details" asp-route-id="@item.Id" style="margin-left: 10px; margin-right: 10px"><i class="far fa-clipboard"></i></a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" style="margin-right: 10px"><i class="far fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <pager class="pager-container" list="@Model" asp-action="Index" asp-controller="Products" />

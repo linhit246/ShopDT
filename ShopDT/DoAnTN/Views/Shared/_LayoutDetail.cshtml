@@ -1,0 +1,170 @@
+﻿@using Microsoft.AspNetCore.Http
+@using DoAnTN.Helpers
+<!DOCTYPE HTML>
+<head>
+    <title>Home Shopee</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="~/client/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/client/css/slider.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <script type="text/javascript" src="~/client/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="~/client/js/move-top.js"></script>
+    <script type="text/javascript" src="~/client/js/easing.js"></script>
+    <script type="text/javascript" src="~/js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="~/client/js/startstop-slider.js"></script>
+</head>
+<body style="font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif">
+    <div class="wrap">
+        <div class="header">
+            @if (SessionHelper.GetSession<User>(Context.Session, "Login") == null)
+            {
+        <div class="headertop_desc" style="padding: 0">
+            <div class="account_desc">
+                <ul style="margin: 0">
+                    <li><a asp-action="Create" asp-controller="Users">Đăng kí</a></li>
+                    <li><a asp-action="Login" asp-controller="Users">Đăng nhập</a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div> }
+    else
+    {
+        var x = SessionHelper.GetSession<User>(Context.Session, "Login");
+        string Fname = x.FirstName + " " + x.LastName;
+        <div class="headertop_desc" style="padding: 0">
+            <div class="dropdown account_desc">
+                <span>Xin chào:</span>
+                <a href="" data-toggle="dropdown" style="font-weight: bold">
+                    @Fname
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" style="margin: 0" asp-action="Details" asp-controller="Users" asp-route-id="@x.Id"><i class="fas fa-user-circle" style="margin-right: 5px"></i>Quản lí tài khoản</a>
+                    <a class="dropdown-item" asp-action="LogOut" style="margin: 0" asp-controller="Users"><i class="fas fa-sign-out-alt" style="margin-right: 5px"></i>Đăng xuất</a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>            }
+            <div class="header_top" style="padding: 0">
+                <div class="logo">
+                    <a asp-action="IndexClient" asp-controller="Products"><img src="~/client/images/logo.png" alt="" /></a>
+                </div>
+                <div class="cart">
+                    <a asp-action="Index" asp-controller="Cart"><img src="/client/images/cart.png" width="25px" height="25px" /></a>
+                </div>
+                <script type="text/javascript">
+                    function DropDown(el) {
+                        this.dd = el;
+                        this.initEvents();
+                    }
+                    DropDown.prototype = {
+                        initEvents: function () {
+                            var obj = this;
+
+                            obj.dd.on('click', function (event) {
+                                $(this).toggleClass('active');
+                                event.stopPropagation();
+                            });
+                        }
+                    }
+
+@*                    $(function () {
+
+                        var dd = new DropDown($('#dd'));
+
+                        $(document).click(function () {
+                            // all dropdowns
+                            $('.wrapper-dropdown-2').removeClass('active');
+                        });
+
+                    });*@
+
+                </script>
+                <div class="clear"></div>
+            </div>
+            <div class="header_bottom">
+                <div class="menu">
+                    <ul style="margin: 0; list-style-type: none">
+                        <li class="active"><a asp-action="IndexClient" asp-controller="Products">Trang Chủ</a></li>
+                        <li><a asp-action="IndexClient" asp-controller="Products">Điện Thoại</a></li>
+                        <li><a href="">Iphone</a></li>
+                        <li><a href="">Giới Thiệu</a></li>
+                        <li><a href="">Liên Hệ</a></li>
+                        <div class="clear"></div>
+                    </ul>
+                </div>
+                @*<div class="search_box">
+                <form>
+                    <input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}"><input type="submit" value="">
+                </form>
+            </div>*@
+                <div class="clear"></div>
+            </div>
+            <div class="main" style=" margin-top: 10px">
+                @RenderBody()
+            </div>
+            <div class="footer">
+                <div class="wrap">
+                    <div class="section group">
+                        <div class="col_1_of_4 span_1_of_4">
+                            <h4>THÔNG TIN HỖ TRỢ</h4>
+                            <ul>
+                                <li><a href="about.html">Chính sách bảo hành</a></li>
+                                <li><a href="contact.html">Bảo hành Xiaomi chính hãng</a></li>
+                                <li><a href="#">Chính sách mua hàng Online</a></li>
+                                <li><a href="delivery.html">Mua hàng trả góp</a></li>
+                                <li><a href="contact.html">Chính sách bảo mật thông tin khách hàng</a></li>
+                            </ul>
+                        </div>
+                        <div class="col_1_of_4 span_1_of_4">
+                            <h4>THÔNG TIN LIÊN LẠC</h4>
+                            <ul>
+                                <li><a href="about.html">Hotline bán hàng:</a></li>
+                                <li><a href="contact.html">0987.253.654</a></li>
+                                <li><a href="#">0975.695.321</a></li>
+                                <li><a href="contact.html">Hotline bảo hành, kỹ thuật:</a></li>
+                                <li><a href="#">1900.4567 (Bấm phím 1)</a></li>
+                                <li><a href="contact.html">Hotline hỗ trợ phần mềm:</a></li>
+                                <li><a href="#">1900.4567 (Bấm phím 2)</a></li>
+                            </ul>
+                        </div>
+                        <div class="col_1_of_4 span_1_of_4">
+                            <h4>Thông tin cửa hàng</h4>
+                            <ul>
+                                <li><a href="about.html">Hệ thống cửa hàng</a></li>
+                                <li><a href="contact.html">Câu hỏi thường gặp mua hàng</a></li>
+                                <li><a href="#">Quy chế hoạt động</a></li>
+                                <li><a href="contact.html">Tin khuyến mãi</a></li>
+                                <li><a href="#">Hướng dẫn mua online</a></li>
+                                <li><a href="contact.html">Hướng dẫn mua trả góp</a></li>
+
+                            </ul>
+                        </div>
+                        <div class="col_1_of_4 span_1_of_4">
+                            <h4>Theo dõi chúng tôi</h4>
+                            <ul>
+                                <li><a href="#" target="_blank" style="display: flex; align-items: center;"><img src="~/client/images/facebook.png" alt="" />Facebook</a></li>
+                                <li><a href="#" target="_blank" style="display: flex; align-items: center;"><img src="~/client/images/twitter.png" alt="" />Twitter</a></li>
+                                <li><a href="#" target="_blank" style="display: flex; align-items: center;"><img src="~/client/images/skype.png" alt="" />Skype</a></li>
+                                <li><a href="#" target="_blank" style="display: flex; align-items: center;"> <img src="~/client/images/dribbble.png" alt="" />Dribble</a></li>
+                                <li><a href="#" target="_blank" style="display: flex; align-items: center;"> <img src="~/client/images/linkedin.png" alt="" />Linkedin</a></li>
+                                <div class="clear"></div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $().UItoTop({ easingType: 'easeOutQuart' });
+
+                });</script>
+            <a href="#" id="toTop"><span id="toTopHover"> </span></a>
+            @RenderSection("Scripts", required: false)
+</body>
+</div>
+</html>
+
